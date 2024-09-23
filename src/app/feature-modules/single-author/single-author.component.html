@@ -1,0 +1,28 @@
+<section class="py-9">
+    <div class="container">
+        @if (isLoading && !isFailed) {
+            <!-- When API Loading -->
+            <app-card-loading></app-card-loading>
+        } @else if (!isLoading && isFailed) {
+            <!-- When API Failed -->
+            <app-card-failure (action)="getAuthor()"></app-card-failure>
+        } @else {
+            <!-- When API Success-->
+            <div>
+                <h1 class="text-2xl font-bold capitalize">{{authorDetails?.name}}</h1>
+                <hr class="my-9">
+                <div class="flex flex-col md:flex-row gap-6 card h-full">
+                    <div class="overflow-hidden w-full md:w-1/3 mb-6 md:mb-0">
+                        <img [src]="authorDetails?.image" class="w-full rounded-lg">
+                    </div>
+                    <div class="flex flex-col w-full md:w-2/3">
+                        <div class="font-bold text-base my-2 capitalize">{{authorDetails?.name}}</div>
+                        @if (authorDetails.birthDate) {
+                            <div class="text-slate-500 text-sm mb-8">Birth Date: <span class="text-slate-700">{{authorDetails?.birthDate}}</span></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./feature-modules/single-book/single-book.module').then(m => m.SingleBookModule)
   },
   {
+    path: 'authors/:id',
+    loadChildren: () => import('./feature-modules/single-author/single-author.module').then(m => m.SingleAuthorModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./feature-modules/not-found/not-found.module').then(m => m.NotFoundModule)
   },
