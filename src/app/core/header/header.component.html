@@ -1,1 +1,17 @@
-<p>header works!</p>
+<header>
+    <div class="container">
+        <div class="flex justify-between items-center card relative group" [ngClass]="(isNavOpen && isMobile) ? 'nav-opened' : ''">
+            <a routerLink="/home" class="text-3xl text-primary font-bold cursor-pointer">Books Lib</a>
+            <span class="inline-block size-8 relative md:hidden" (click)="navToggling()">
+                <span
+                    class="w-3/4 h-[1px] bg-black absolute right-0 top-1/2 translate-y-1/2 transition-all duration-300 ease-in-out after:content-[''] after:bg-black after:h-[1px] after:w-[calc(100%_+_7px)] after:absolute after:right-0 after:top-[8px] before:content-[''] before:bg-black before:h-[1px] before:w-[calc(100%_+_7px)] before:absolute before:right-0 before:top-[-8px] group-[.nav-opened]:h-0 group-[.nav-opened]:after:top-0 group-[.nav-opened]:after:right-0 group-[.nav-opened]:after:w-full group-[.nav-opened]:after:rotate-45 group-[.nav-opened]:before:top-0 group-[.nav-opened]:before:right-0 group-[.nav-opened]:before:w-full group-[.nav-opened]:before:-rotate-45"
+                ></span>
+            </span>
+            <div class="hidden group-[.nav-opened]:flex group-[.nav-opened]:flex-col group-[.nav-opened]:bg-white group-[.nav-opened]:absolute group-[.nav-opened]:top-full group-[.nav-opened]:mt-1 group-[.nav-opened]:w-full group-[.nav-opened]:p-4 group-[.nav-opened]:rounded-lg group-[.nav-opened]:shadow-md group-[.nav-opened]:left-0 group-[.nav-opened]:z-10 md:flex gap-8">
+                @for (link of  ['home', 'wishlist', 'search']; track link) {
+                    <a [routerLink]="link" [routerLinkActive]="['!active']" class="text-slate-500 transition-all duration-[0.5s] capitalize hover:text-primary hover:underline">{{link}}</a>
+                }
+            </div>
+        </div>
+    </div>
+</header>
