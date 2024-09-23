@@ -3,6 +3,7 @@ import { APIConfig } from '../configs/api-config';
 import { BooksListInterface } from '../models/booksListInterface';
 import { map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { BookInterface } from '../models/bookInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +74,61 @@ export class BookServicesService {
       booksArr.push(bookItem);
     })
     return {subjectName, booksArr};
+  }
+
+  // Single Book Inquery
+  getSingleBook(id:any) {
+    let url = APIConfig.singleBookInquiry.url(id);
+    // return of (this.mapSingleBook(bookMock));
+    return this.http.get(url).pipe(
+      map((res: any) => {
+        return this.mapSingleBook(res);
+      })
+    )
+  }
+
+  // Mapping Single Book Inquery
+  mapSingleBook(book:any) {
+    const year = (new Date(book.created.value)).getFullYear();
+    let authorsList: any = [];
+    let authorsNams: any = [];
+    book.authors.map((auth:any) => {authorsList.push(auth.author.key.split("/").at(-1));});
+    authorsList.map((id:any) => {authorsNams.push(this.getSingleAuthor(id))})
+    let bookId = book.key.split("/").at(-1);
+    let bookData: BookInterface = {
+      id: bookId,
+      image: book.covers,
+      title: book.title,
+      fisrtPublished: year,
+      author: authorsNams, //////
+      editionCount: book.revision,
+      PagesNo: '-',
+      isLoved: this.isLoved(bookId)
+    }
+    return bookData;
+  }
+
+  // Single Author Inquery
+  getSingleAuthor(id:any) {
+    let url = APIConfig.singleAuthorInquiry.url(id);
+    // return of (this.mapSingleAuthor(authorMock));
+    return this.http.get(url).pipe(
+      map((res: any) => {
+        return this.mapSingleAuthor(res);
+      })
+    )
+  }
+
+  // Mapping Single Author Inquery
+  mapSingleAuthor(author:any) {
+    let authorId = author.key.split("/").at(-1);
+    let coverId= author.photos ? author.photos[0] : null;
+    let authorData = {
+      id: authorId,
+      image: coverId ? `https://covers.openlibrary.org/a/olid/${coverId}-L.jpg` : 'https://placehold.co/200x300/64748b/f1f5f9?text=Author+Placholder',
+      name: author.name,
+      birthDate: author.birth_date
+    }
+    return authorData;
   }
 }

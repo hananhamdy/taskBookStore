@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./feature-modules/search/search.module').then(m => m.SearchModule)
   },
   {
+    path: 'works/:id',
+    loadChildren: () => import('./feature-modules/single-book/single-book.module').then(m => m.SingleBookModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./feature-modules/not-found/not-found.module').then(m => m.NotFoundModule)
   },

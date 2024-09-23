@@ -1,0 +1,70 @@
+<section class="py-9">
+    <div class="container">
+        @if (isLoading && !isFailed) {
+            <!-- When API Loading -->
+            <app-card-loading></app-card-loading>
+        } @else if (!isLoading && isFailed) {
+            <!-- When API Failed -->
+            <app-card-failure (action)="getBook()"></app-card-failure>
+        } @else {
+            <!-- When API Success-->
+            <div>
+                <h1 class="text-2xl font-bold capitalize">{{bookDetails?.title}}</h1>
+                <hr class="my-9">
+                <div class="flex flex-col gap-6 card h-full">
+                    <div class="flex gap-6">
+                        @for (image of bookDetails?.image; track $index) {
+                            <div class="overflow-hidden">
+                                <img [src]="'https://covers.openlibrary.org/b/id/' + image + '-L.jpg'" class="w-14 h-28 rounded-lg">
+                            </div>
+                        }
+                        @empty {
+                            <div class="overflow-hidden">
+                                <img src="https://placehold.co/200x300/64748b/f1f5f9?text=Book+Placholder" class="w-14 h-28 rounded-lg">
+                            </div>
+                        }
+                    </div>
+                    <div class="flex flex-col w-full">
+                        <div class="text-slate-500 text-sm">Published on: <span class="text-slate-700">{{bookDetails?.fisrtPublished}}</span></div>
+                        <div class="font-bold text-base my-2 capitalize">{{bookDetails?.title}}</div>
+
+                        <div class="text-slate-500 capitalize text-sm">
+                            Authors:
+                            @for (author of  authorsName; track author.id; let last=$last) {
+                                <a (click)="redirectTo(author.id)" class="text-slate-700 cursor-pointer hover:text-primary">{{author.name}}</a>
+                                @if (!last) { 
+                                    <span>,</span> 
+                                }
+                            }
+                            @empty {
+                                <div>No Authors found!</div>
+                            }
+                        </div>
+                        <div class="text-slate-500 text-sm">Edition Count: <span class="text-slate-700">{{bookDetails?.editionCount}}</span></div>
+                        <div class="text-slate-500 text-sm mb-8">No of pages: <span class="text-slate-700">{{bookDetails?.PagesNo}}</span></div>
+                        <div class="mt-auto flex gap-2 md:justify-end">
+                            <div (click)="toggleLove(bookDetails.id)" class="text-primary font-bold text-xs my-1 capitalize cursor-pointer hover:underline">
+                                <svg class="size-4 fill-primary">
+                                    @if (isLovedIcon) { 
+                                        <use xlink:href="#icon-love"></use>
+                                    } @else {
+                                        <use xlink:href="#icon-unlove"></use>
+                                    }
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<svg class="hidden">
+    <symbol id="icon-unlove" viewBox="0 0 32 32">
+        <path d="M19.189 24.151c-0.877 0.71-2.003 1.101-3.173 1.101-1.168 0-2.298-0.39-3.21-1.123-5.75-4.614-9.411-7.062-9.602-12.082-0.2-5.313 5.912-7.255 9.659-2.89 0.758 0.882 1.898 1.388 3.126 1.388 1.24 0 2.387-0.512 3.147-1.404 3.666-4.296 9.941-2.466 9.654 3.062-0.256 4.917-4.058 7.456-9.603 11.948zM16.62 7.33c-0.157 0.184-0.394 0.277-0.629 0.277-0.23 0-0.459-0.090-0.613-0.268-5.669-6.603-15.678-3.315-15.371 4.81 0.245 6.466 5.058 9.671 10.725 14.218 1.515 1.216 3.4 1.823 5.285 1.823 1.89 0 3.778-0.611 5.29-1.835 5.605-4.541 10.357-7.724 10.682-14.014 0.432-8.306-9.714-11.642-15.368-5.011z"></path>
+    </symbol>
+    <symbol id="icon-love" viewBox="0 0 32 32">
+        <path d="M31.988 12.343c-0.323 6.238-4.949 9.373-10.682 14.018-3.021 2.447-7.542 2.447-10.574 0.014-5.694-4.571-10.48-7.768-10.725-14.223-0.307-8.111 9.691-11.432 15.371-4.814 0.31 0.363 0.931 0.355 1.24-0.008 5.661-6.641 15.8-3.276 15.37 5.013z"></path>
+    </symbol>
+</svg>
