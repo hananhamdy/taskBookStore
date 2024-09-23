@@ -1,0 +1,22 @@
+<section class="py-9">
+    <div class="container">
+        @if (isLoading && !isFailed) {
+            <!-- When API Loading -->
+            <app-card-loading></app-card-loading>
+        } @else if (!isLoading && isFailed) {
+            <!-- When API Failed -->
+            <app-card-failure (action)="getBooks()"></app-card-failure>
+        } @else {
+            <!-- When API Success-->
+            <div>
+                <h1 class="text-2xl font-bold capitalize">{{subjectName}}</h1>
+                <hr class="my-9">
+                <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                    @for (card of booksList; track $index) {
+                        <app-card-book [data]="card" (action)="redirectTo($event)"></app-card-book>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</section>

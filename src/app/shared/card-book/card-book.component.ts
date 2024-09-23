@@ -3,6 +3,7 @@ import { BookServicesService } from '../../services/book-services.service';
 
 @Component({
   selector: 'app-card-book',
+  standalone: true,
   templateUrl: './card-book.component.html',
   styleUrl: './card-book.component.css'
 })
