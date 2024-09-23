@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./feature-modules/search/search.module').then(m => m.SearchModule)
   },
   {
+    path: '**',
+    loadChildren: () => import('./feature-modules/not-found/not-found.module').then(m => m.NotFoundModule)
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
