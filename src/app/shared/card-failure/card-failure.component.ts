@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-card-failure',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './card-failure.component.css'
 })
 export class CardFailureComponent {
+  @Output() action = new EventEmitter();
 
+  refresh() {
+    this.action.emit();
+  }
 }
