@@ -9,6 +9,7 @@ import { CardLoadingComponent } from './shared/card-loading/card-loading.compone
 import { CardFailureComponent } from './shared/card-failure/card-failure.component';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
+import { HomeComponent } from './featuremodules/home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FooterComponent } from './core/footer/footer.component';
     CardLoadingComponent,
     CardFailureComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

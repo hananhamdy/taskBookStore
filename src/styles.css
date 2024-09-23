@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: "Roboto", system-ui, sans-serif;
+    }
+}
+
+@layer components {
+    .active {
+        color: theme('colors.primary');
+        font-weight: theme('fontWeight.bold');
+        text-decoration: underline;
+    }
+    .card {
+      background-color: theme('colors.white');
+      border-radius: theme('borderRadius.lg');
+      padding: theme('spacing.5');
+      box-shadow: theme('boxShadow.md');
+    }
+  }
